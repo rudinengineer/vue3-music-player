@@ -4,9 +4,10 @@ import PrevIcon from "../icons/PrevIcon.vue";
 import PauseIcon from "../icons/PauseIcon.vue";
 import PlayIcon from "../icons/PlayIcon.vue";
 import SkipIcon from "../icons/SkipIcon.vue";
+import { useThemeStore } from "../../stores/theme";
+import { useStore } from "../../stores/store";
 
 interface playerProps {
-  audio: HTMLAudioElement | undefined;
   player: {
     play: boolean;
   };
@@ -16,26 +17,29 @@ interface playerProps {
 const props = withDefaults(defineProps<playerProps>(), {});
 const emits = defineEmits(["setAnimationDelay", "setPlayerPlay"]);
 
+const stores = useStore();
+const themes = useThemeStore();
+
 const handlePlay = (value: boolean) => {
   emits("setPlayerPlay", value);
-  value ? props.audio?.play() : props.audio?.pause();
+  value ? stores.getAudio?.play() : stores.getAudio?.pause();
 };
 
 const handleSkip = () => {
-  if (props.audio) {
-    if (props.audio.currentTime < props.audio.duration) {
-      props.audio.currentTime += 8;
-      emits("setAnimationDelay", Math.floor(props.audio?.currentTime));
+  if (stores.getAudio) {
+    if (stores.getAudio.currentTime < stores.getAudio.duration) {
+      stores.getAudio.currentTime += 8;
+      emits("setAnimationDelay", Math.floor(stores.getAudio?.currentTime));
     } else {
-      emits("setAnimationDelay", Math.floor(props.audio.duration));
+      emits("setAnimationDelay", Math.floor(stores.getAudio.duration));
     }
   }
 };
 
 const handlePrev = () => {
-  if (props.audio) {
-    props.audio.currentTime -= 8;
-    emits("setAnimationDelay", Math.floor(props.audio?.currentTime));
+  if (stores.getAudio) {
+    stores.getAudio.currentTime -= 8;
+    emits("setAnimationDelay", Math.floor(stores.getAudio?.currentTime));
   }
 };
 
@@ -60,7 +64,11 @@ onMounted(() => {
 <template>
   <div class="flex justify-center items-center gap-6">
     <button @click="handlePrev" class="cursor-pointer" title="Prev">
-      <PrevIcon />
+      <PrevIcon
+        :color="
+          themes.cardBackgroundTransparent ? 'text-white' : 'text-cute-500'
+        "
+      />
     </button>
 
     <button
@@ -69,7 +77,11 @@ onMounted(() => {
       class="cursor-pointer"
       title="Pause"
     >
-      <PauseIcon />
+      <PauseIcon
+        :color="
+          themes.cardBackgroundTransparent ? 'text-white' : 'text-cute-500'
+        "
+      />
     </button>
 
     <button
@@ -78,11 +90,19 @@ onMounted(() => {
       class="cursor-pointer"
       title="Play"
     >
-      <PlayIcon />
+      <PlayIcon
+        :color="
+          themes.cardBackgroundTransparent ? 'text-white' : 'text-cute-500'
+        "
+      />
     </button>
 
     <button @click="handleSkip" class="cursor-pointer" title="Skip">
-      <SkipIcon />
+      <SkipIcon
+        :color="
+          themes.cardBackgroundTransparent ? 'text-white' : 'text-cute-500'
+        "
+      />
     </button>
   </div>
 </template>

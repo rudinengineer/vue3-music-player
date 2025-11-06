@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const props = defineProps(["color"]);
+</script>
+
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -5,7 +9,8 @@
     height="24"
     viewBox="0 0 24 24"
     fill="currentColor"
-    class="size-12 text-cute-500"
+    class="size-12"
+    :class="props.color"
   >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path

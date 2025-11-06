@@ -1,27 +1,15 @@
 <script setup lang="ts">
-import type { Reactive } from "vue";
 import BroadcastIcon from "../icons/BroadcastIcon.vue";
+import { useThemeStore } from "../../stores/theme";
 
-interface playerProps {
-  audio: HTMLAudioElement | undefined;
-  audioMetadata: Reactive<{
-    name: string;
-    size: number;
-    title: string;
-    user: string;
-    artist: string;
-    image: string;
-  }>;
-}
-
-const props = withDefaults(defineProps<playerProps>(), {});
+const themes = useThemeStore();
 </script>
 
 <template>
   <div class="w-full">
     <div>
       <img
-        :src="props.audioMetadata.image"
+        :src="themes.getImage"
         alt="Music Player"
         class="w-full aspect-square rounded-lg object-cover object-center"
       />
@@ -30,21 +18,37 @@ const props = withDefaults(defineProps<playerProps>(), {});
 
   <div class="mt-2 flex items-center justify-between gap-3">
     <div class="w-full">
-      <span class="text-left text-sm font-medium text-gray-500">{{
-        props.audioMetadata.user
-      }}</span>
-      <h1
-        class="max-w-[320px] text-xl font-bold text-cute-500 whitespace-normal wrap-break-word line-clamp-2 text-left"
+      <span
+        :class="
+          themes.getCardBackgroundTransparent ? 'text-white' : 'text-gray-500'
+        "
+        class="text-left text-sm font-medium"
+        >{{ themes.getUser }}</span
       >
-        {{ props.audioMetadata?.title }}
+      <h1
+        :class="
+          themes.getCardBackgroundTransparent ? 'text-white' : 'text-cute-500'
+        "
+        class="max-w-[320px] text-xl font-bold whitespace-normal wrap-break-word line-clamp-2 text-left"
+      >
+        {{ themes.getTitle }}
       </h1>
-      <h1 class="text-left text-lg font-medium text-gray-600">
-        {{ props.audioMetadata.artist }}
+      <h1
+        :class="
+          themes.getCardBackgroundTransparent ? 'text-white' : 'text-gray-600'
+        "
+        class="text-left text-lg font-medium"
+      >
+        {{ themes.getArtist }}
       </h1>
     </div>
 
     <div class="w-fit">
-      <BroadcastIcon />
+      <BroadcastIcon
+        :color="
+          themes.getCardBackgroundTransparent ? 'text-white' : 'text-cute-500'
+        "
+      />
     </div>
   </div>
 </template>

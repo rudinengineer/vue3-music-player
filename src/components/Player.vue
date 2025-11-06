@@ -1,26 +1,21 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref, type Reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import Card from "./Card.vue";
 import Volume from "./player/Volume.vue";
 import Progress from "./player/Progress.vue";
 import Metadata from "./player/Metadata.vue";
 import Playback from "./player/Playback.vue";
+import { useStore } from "../stores/store";
+import { useThemeStore } from "../stores/theme";
 
 interface playerProps {
-  audio: HTMLAudioElement | undefined;
-  audioMetadata: Reactive<{
-    name: string;
-    size: number;
-    title: string;
-    user: string;
-    artist: string;
-    image: string;
-  }>;
   autoplay: boolean;
 }
 
 const props = withDefaults(defineProps<playerProps>(), {});
 
+const stores = useStore();
+const themes = useThemeStore();
 const player = reactive({
   play: props.autoplay,
 });
@@ -42,7 +37,7 @@ onMounted(async () => {
     .then(async () => {
       volumePermission.value = true;
       if (props.autoplay) {
-        props.audio?.play();
+        stores.getAudio?.play();
       }
 
       if (!document.fullscreenElement) {
@@ -51,7 +46,7 @@ onMounted(async () => {
     })
     .catch(async () => {
       if (props.autoplay) {
-        props.audio?.play();
+        stores.getAudio?.play();
       }
 
       if (!document.fullscreenElement) {
@@ -59,15 +54,11 @@ onMounted(async () => {
       }
     });
 
-  props.audio?.addEventListener("volumechange", function () {
-    console.log(props.audio?.volume);
-  });
-
   // Listen Audio Change Time
-  props.audio?.addEventListener("timeupdate", function () {
-    if (props.audio) {
-      const totalSeconds = Math.floor(props.audio?.currentTime);
-      const duration = Math.floor(props.audio.duration);
+  stores.getAudio?.addEventListener("timeupdate", function () {
+    if (stores.getAudio) {
+      const totalSeconds = Math.floor(stores.getAudio?.currentTime);
+      const duration = Math.floor(stores.getAudio.duration);
 
       if (totalSeconds >= duration) {
         player.play = false;
@@ -78,13 +69,16 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Card :visibility="true" size="medium">
+  <Card
+    :theme="themes.backgroundImage ? 'glass' : 'solid'"
+    :visibility="true"
+    size="medium"
+  >
     <div>
-      <Metadata :audio="audio" :audio-metadata="props.audioMetadata" />
+      <Metadata />
 
       <div class="mt-4">
         <Progress
-          :audio="audio"
           :player="player"
           :animation-delay="animationDelay"
           v-on:set-animation-delay="setAnimationDelay"
@@ -93,7 +87,6 @@ onMounted(async () => {
 
       <div class="mt-2">
         <Playback
-          :audio="audio"
           :player="player"
           :animation-delay="animationDelay"
           v-on:set-animation-delay="setAnimationDelay"
@@ -102,7 +95,7 @@ onMounted(async () => {
       </div>
 
       <div class="mt-6" v-if="volumePermission">
-        <Volume :audio="audio" />
+        <Volume />
       </div>
     </div>
   </Card>

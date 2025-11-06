@@ -1,94 +1,33 @@
 <script setup lang="ts">
-import { reactive, ref } from "vue";
 import FileUpload from "./components/FileUpload.vue";
 import Themes from "./components/Themes.vue";
 import Player from "./components/Player.vue";
 import SetupMetadata from "./components/SetupMetadata.vue";
+import { useThemeStore } from "./stores/theme";
+import { useStore } from "./stores/store";
 
-type Step = "upload-music" | "select-theme" | "setup-metadata" | "player";
-
-const backgroundGradientFrom = ref<string>("#ffd6e8");
-const backgroundGradientTo = ref<string>("#ff70a6");
-const step = ref<Step>("upload-music");
-const audio = ref<HTMLAudioElement>();
-const audioMetadata = reactive({
-  name: "",
-  size: 0,
-  title: "",
-  user: "",
-  artist: "",
-  image: "",
-});
-
-const setAudio = (source: string) => {
-  audio.value = new Audio(source);
-
-  audio.value.addEventListener("loadedmetadata", function () {
-    step.value = "setup-metadata";
-  });
-};
-
-const setAudioMetadata = (metadata: File) => {
-  audioMetadata.name = metadata.name;
-  audioMetadata.size = metadata.size;
-  audioMetadata.title = metadata.name.replace(".mp3", "");
-  audioMetadata.image = import.meta.env.BASE_URL + "/assets/anime.jpg";
-  audioMetadata.artist = "Rudin";
-  audioMetadata.user = "iPhone";
-};
-
-const setStep = (value: Step) => {
-  step.value = value;
-};
-
-const setMetadata = (key: string, value: never) => {
-  audioMetadata[key as keyof typeof audioMetadata] = value;
-  console.log(audioMetadata);
-};
-
-const setBackgoundFrom = (color: string) => {
-  backgroundGradientFrom.value = color;
-};
-const setBackgoundTo = (color: string) => {
-  backgroundGradientTo.value = color;
-};
+const themes = useThemeStore();
+const stores = useStore();
 </script>
 
 <template>
   <div
     class="w-full min-h-screen flex justify-center items-center p-4"
     :style="{
-      background: `linear-gradient(135deg, ${backgroundGradientFrom} 0%, ${backgroundGradientTo} 100% )`,
+      background: themes.getBackgroundImage
+        ? `url('${themes.getBackgroundImage}')`
+        : `linear-gradient(135deg, ${themes.getBackgroundGradientFrom} 0%, ${themes.getBackgroundGradientTo} 100% )`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
     }"
   >
-    <FileUpload
-      v-if="step === 'upload-music'"
-      v-on:set-audio="setAudio"
-      v-on:set-audio-metadata="setAudioMetadata"
-    />
+    <FileUpload v-if="stores.getStep === 'upload-music'" />
 
-    <Themes
-      v-if="step === 'select-theme'"
-      @set-step="setStep"
-      :audio="audio"
-      :audio-metadata="audioMetadata"
-    />
+    <Themes v-if="stores.getStep === 'select-theme'" />
 
-    <SetupMetadata
-      v-if="step === 'setup-metadata'"
-      :audio-metadata="audioMetadata"
-      v-on:set-step="setStep"
-      v-on:set-metadata="setMetadata"
-      v-on:set-background-from="setBackgoundFrom"
-      v-on:set-background-to="setBackgoundTo"
-    />
+    <SetupMetadata v-if="stores.getStep === 'setup-metadata'" />
 
-    <Player
-      v-if="step === 'player'"
-      :audio="audio"
-      :audio-metadata="audioMetadata"
-      :autoplay="true"
-    />
+    <Player v-if="stores.getStep === 'player'" :autoplay="true" />
   </div>
 </template>
 

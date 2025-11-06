@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const props = defineProps(["color"]);
+</script>
+
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -9,7 +13,8 @@
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
-    class="size-7 text-cute-500"
+    class="size-7"
+    :class="props.color"
   >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M18.364 19.364a9 9 0 1 0 -12.728 0" />

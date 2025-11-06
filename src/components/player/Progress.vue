@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import { useThemeStore } from "../../stores/theme";
+import { useStore } from "../../stores/store";
 
 interface playerProps {
-  audio: HTMLAudioElement | undefined;
   player: {
     play: boolean;
   };
@@ -12,6 +13,8 @@ interface playerProps {
 const props = withDefaults(defineProps<playerProps>(), {});
 const emits = defineEmits(["setAnimationDelay"]);
 
+const stores = useStore();
+const themes = useThemeStore();
 const playBar = ref<HTMLElement>();
 const durationMinute = ref<number>(0);
 const durationSecond = ref<number>(0);
@@ -20,15 +23,15 @@ const currentSecondDuration = ref<number>(0);
 
 onMounted(() => {
   // Get Duration
-  const totalSeconds = Math.floor(Number(props.audio?.duration));
+  const totalSeconds = Math.floor(Number(stores.getAudio?.duration));
   durationMinute.value = Math.floor(totalSeconds / 60);
   durationSecond.value = totalSeconds % 60;
 
   // Listen Audio Current Time
-  props.audio?.addEventListener("timeupdate", function () {
-    if (props.audio) {
-      const totalSeconds = Math.floor(props.audio?.currentTime);
-      const duration = Math.floor(props.audio.duration);
+  stores.getAudio?.addEventListener("timeupdate", function () {
+    if (stores.getAudio) {
+      const totalSeconds = Math.floor(stores.getAudio?.currentTime);
+      const duration = Math.floor(stores.getAudio.duration);
       currentMinuteDuration.value = Math.floor(totalSeconds / 60);
       currentSecondDuration.value = totalSeconds % 60;
 
@@ -37,11 +40,11 @@ onMounted(() => {
           (totalSeconds === 0 || totalSeconds >= duration) &&
           props.player.play
         ) {
-          emits("setAnimationDelay", Math.floor(props.audio?.currentTime));
+          emits("setAnimationDelay", Math.floor(stores.getAudio?.currentTime));
           playBar.value.style.animation = "none";
           void playBar.value.offsetWidth;
           playBar.value.style.animation = `musicplay ${Math.floor(
-            props.audio?.duration
+            stores.getAudio?.duration
           )}s linear ${props.animationDelay} forwards`;
         }
       }
@@ -59,7 +62,7 @@ onMounted(() => {
       ref="playBar"
       :style="{
         animation: `musicplay ${Math.floor(
-          Number(props.audio?.duration)
+          Number(stores.getAudio?.duration)
         )}s linear forwards`,
         animationDelay: `-${props.animationDelay}s`,
         animationPlayState: props.player.play ? 'running' : 'paused',
@@ -75,15 +78,23 @@ onMounted(() => {
   </div>
 
   <div class="w-full flex justify-between items-center">
-    <span class="text-gray-500 text-xs font-semibold">{{
-      String(currentMinuteDuration).padStart(2, "0") +
-      ":" +
-      String(currentSecondDuration).padStart(2, "0")
-    }}</span>
-    <span class="text-gray-500 text-xs font-semibold">{{
-      String(durationMinute).padStart(2, "0") +
-      ":" +
-      String(durationSecond).padStart(2, "0")
-    }}</span>
+    <span
+      :class="themes.cardBackgroundTransparent ? 'text-white' : 'text-gray-500'"
+      class="text-xs font-semibold"
+      >{{
+        String(currentMinuteDuration).padStart(2, "0") +
+        ":" +
+        String(currentSecondDuration).padStart(2, "0")
+      }}</span
+    >
+    <span
+      :class="themes.cardBackgroundTransparent ? 'text-white' : 'text-gray-500'"
+      class="text-xs font-semibold"
+      >{{
+        String(durationMinute).padStart(2, "0") +
+        ":" +
+        String(durationSecond).padStart(2, "0")
+      }}</span
+    >
   </div>
 </template>

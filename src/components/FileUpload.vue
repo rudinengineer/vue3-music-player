@@ -1,21 +1,26 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Card from "./Card.vue";
+import { MUSIC_EXTENSION_SUPPORT } from "../config/music";
+import { useThemeStore } from "../stores/theme";
+import { SanitizeMusicTitle } from "../utils/music";
+import { useStore } from "../stores/store";
 
-const emits = defineEmits(["setAudio", "setAudioMetadata"]);
-
+const themes = useThemeStore();
+const stores = useStore();
 const visibility = ref<boolean>(true);
 
 const handleChange = (e: any) => {
   visibility.value = !visibility.value;
   const file = e?.target?.files[0];
-  emits("setAudio", URL.createObjectURL(file));
-  emits("setAudioMetadata", file);
+  stores.setAudio(URL.createObjectURL(file));
+  themes.setTitle(SanitizeMusicTitle(file.name));
+  stores.setStep("setup-metadata");
 };
 </script>
 
 <template>
-  <Card :visibility="visibility" size="medium">
+  <Card theme="solid" :visibility="visibility" size="medium">
     <div class="w-full">
       <div>
         <img
@@ -42,7 +47,7 @@ const handleChange = (e: any) => {
         <input
           type="file"
           id="file"
-          accept=".mp3,.wav"
+          :accept="MUSIC_EXTENSION_SUPPORT.join(',')"
           @change="handleChange"
           hidden
         />
