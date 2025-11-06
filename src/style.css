@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cute-50: #fff0f5;
+  --color-cute-100: #ffe5ec;
+  --color-cute-200: #ffd6e8;
+  --color-cute-300: #ffb7ce;
+  --color-cute-400: #ff9acd;
+  --color-cute-500: #ff70a6;
+  --color-cute-600: #f45c94;
+  --color-cute-700: #e04a85;
+  --color-cute-800: #c93b75;
+  --color-cute-900: #a02b5d;
+
+  --card-bg: #fffafc;
+  --card-border: #ffe5ec;
+  --card-shadow: rgba(255, 183, 206, 0.25);
+
+  /* gradients */
+  --background-cute-candy: linear-gradient(
+    135deg,
+    var(--color-cute-100) 0%,
+    var(--color-cute-300) 100%
+  );
+
+  --background-cute-bubble: linear-gradient(
+    135deg,
+    var(--color-cute-200) 0%,
+    var(--color-cute-500) 100%
+  );
+
+  --background-cute-love: linear-gradient(
+    135deg,
+    var(--color-cute-100) 0%,
+    #eecdf7 100%
+  );
+}
+
+.animate-fade {
+  animation: fade 1s ease-in-out;
+}
+
+.animate-fade-down {
+  animation: fadedown 1s ease-in-out forwards;
+}
+
+@keyframes musicplay {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadedown {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
