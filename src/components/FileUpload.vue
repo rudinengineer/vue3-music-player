@@ -5,6 +5,7 @@ import { MUSIC_EXTENSION_SUPPORT } from "../config/music";
 import { useThemeStore } from "../stores/theme";
 import { SanitizeMusicTitle } from "../utils/music";
 import { useStore } from "../stores/store";
+import SocialMedia from "./SocialMedia.vue";
 
 const themes = useThemeStore();
 const stores = useStore();
@@ -20,38 +21,46 @@ const handleChange = (e: any) => {
 </script>
 
 <template>
-  <Card theme="solid" :visibility="visibility" size="medium">
-    <div class="w-full">
+  <div>
+    <Card theme="solid" :visibility="visibility" size="medium">
+      <div class="w-full">
+        <div>
+          <img
+            src="/assets/anime.jpg"
+            alt="Upload Music"
+            class="rounded-md size-80"
+          />
+        </div>
+
+        <div class="mt-4">
+          <p class="text-center font-medium">
+            Upload your music and listen to relax.
+          </p>
+        </div>
+
+        <div class="mt-5">
+          <label for="file">
+            <div
+              class="w-full cursor-pointer text-center bg-cute-600 px-4 py-3 rounded-md font-semibold text-white transition duration-500 ease-in-out hover:bg-cute-700"
+            >
+              Choose File
+            </div>
+          </label>
+          <input
+            type="file"
+            id="file"
+            :accept="MUSIC_EXTENSION_SUPPORT.join(',')"
+            @change="handleChange"
+            hidden
+          />
+        </div>
+      </div>
+    </Card>
+
+    <div class="animate-fade w-full mt-4 flex justify-center">
       <div>
-        <img
-          src="/assets/anime.jpg"
-          alt="Upload Music"
-          class="rounded-md size-80"
-        />
-      </div>
-
-      <div class="mt-4">
-        <p class="text-center font-medium">
-          Upload your music and listen to relax.
-        </p>
-      </div>
-
-      <div class="mt-5">
-        <label for="file">
-          <div
-            class="w-full cursor-pointer text-center bg-cute-600 px-4 py-3 rounded-md font-semibold text-white transition duration-500 ease-in-out hover:bg-cute-700"
-          >
-            Choose File
-          </div>
-        </label>
-        <input
-          type="file"
-          id="file"
-          :accept="MUSIC_EXTENSION_SUPPORT.join(',')"
-          @change="handleChange"
-          hidden
-        />
+        <SocialMedia />
       </div>
     </div>
-  </Card>
+  </div>
 </template>
