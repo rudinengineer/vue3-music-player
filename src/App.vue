@@ -32,7 +32,7 @@ const setAudioMetadata = (metadata: File) => {
   audioMetadata.name = metadata.name;
   audioMetadata.size = metadata.size;
   audioMetadata.title = metadata.name.replace(".mp3", "");
-  audioMetadata.image = "/assets/upload-music.jpg";
+  audioMetadata.image = import.meta.env.BASE_URL + "/assets/anime.jpg";
   audioMetadata.artist = "Rudin";
   audioMetadata.user = "iPhone";
 };
@@ -43,6 +43,7 @@ const setStep = (value: Step) => {
 
 const setMetadata = (key: string, value: never) => {
   audioMetadata[key as keyof typeof audioMetadata] = value;
+  console.log(audioMetadata);
 };
 
 const setBackgoundFrom = (color: string) => {

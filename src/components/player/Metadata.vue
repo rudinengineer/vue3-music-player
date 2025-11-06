@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<playerProps>(), {});
         props.audioMetadata.user
       }}</span>
       <h1
-        class="max-w-[320px] text-xl font-semibold text-cute-500 whitespace-normal wrap-break-word line-clamp-2 text-left"
+        class="max-w-[320px] text-xl font-bold text-cute-500 whitespace-normal wrap-break-word line-clamp-2 text-left"
       >
         {{ props.audioMetadata?.title }}
       </h1>

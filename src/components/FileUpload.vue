@@ -19,7 +19,7 @@ const handleChange = (e: any) => {
     <div class="w-full">
       <div>
         <img
-          src="/assets/upload-music.jpg"
+          src="/assets/anime.jpg"
           alt="Upload Music"
           class="rounded-md size-80"
         />

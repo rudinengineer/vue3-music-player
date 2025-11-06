@@ -28,13 +28,13 @@ const artist = ref<string>(props.audioMetadata.artist);
 
 const handleClick = () => {
   emits("setStep", "player");
+  emits("setMetadata", "title", title.value);
+  emits("setMetadata", "user", user.value);
+  emits("setMetadata", "artist", artist.value);
 };
 
 const handleUpload = (e: any) => {
   const file = e.target.files[0];
-  emits("setMetadata", "title", title.value);
-  emits("setMetadata", "user", user.value);
-  emits("setMetadata", "artist", artist.value);
   emits("setMetadata", "image", URL.createObjectURL(file));
 };
 
