@@ -6,6 +6,7 @@ import { useThemeStore } from "../stores/theme";
 import { SanitizeMusicTitle } from "../utils/music";
 import { useStore } from "../stores/store";
 import SocialMedia from "./SocialMedia.vue";
+import animeImg from "../assets/anime.jpg";
 
 const themes = useThemeStore();
 const stores = useStore();
@@ -25,11 +26,7 @@ const handleChange = (e: any) => {
     <Card theme="solid" :visibility="visibility" size="medium">
       <div class="w-full">
         <div>
-          <img
-            src="/assets/anime.jpg"
-            alt="Upload Music"
-            class="rounded-md size-80"
-          />
+          <img :src="animeImg" alt="Upload Music" class="rounded-md size-80" />
         </div>
 
         <div class="mt-4">

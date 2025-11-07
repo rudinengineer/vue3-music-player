@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useThemeStore } from "../../stores/theme";
+import animeImg from "../../assets/anime.jpg";
 
 const themes = useThemeStore();
 const imageUrl = ref<string>();
@@ -15,7 +16,7 @@ const handleImageUrl = (e: any) => {
   if (e.target.value) {
     themes.setImage(e.target.value);
   } else {
-    themes.setImage(import.meta.env.BASE_URL + "/assets/anime.jpg");
+    themes.setImage(animeImg);
   }
 };
 </script>

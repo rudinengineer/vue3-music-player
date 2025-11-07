@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useThemeStore } from "../../stores/theme";
 import UploadIcon from "../icons/UploadIcon.vue";
+import bgImage from '../../assets/background.jpg'
 
 const themes = useThemeStore();
 const backgroundIsImage = ref<boolean>(Boolean(themes.getBackgroundImage));
@@ -16,9 +17,7 @@ const handleBackgroundTo = (e: any) => {
 const handleBackgroundIsImage = () => {
   backgroundIsImage.value = !backgroundIsImage.value;
   if (backgroundIsImage.value) {
-    themes.setBackgroundImage(
-      import.meta.env.BASE_URL + "/assets/background.jpg"
-    );
+    themes.setBackgroundImage(bgImage);
     backgroundImageUrl.value = window.location.href + "assets/background.jpg";
   } else {
     themes.setBackgroundImage(null);

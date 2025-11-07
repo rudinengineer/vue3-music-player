@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import Themes from "../components/Themes.vue";
+import animeImg from "../assets/anime.jpg";
 
 type Themes = {
   backgroundImage: string | null;
@@ -23,7 +24,7 @@ export const useThemeStore = defineStore("themes", {
     cardBackgroundColor: "#fff",
     cardBackgroundTransparent: 20,
     cardBackgroundBlur: true,
-    image: import.meta.env.BASE_URL + "/assets/anime.jpg",
+    image: animeImg,
     title: "",
     user: "iPhone",
     artist: "Rudin",
