@@ -62,9 +62,11 @@ export const useThemeStore = defineStore("themes", {
   },
   getters: {
     getTextColor: (state) =>
-      state.cardBackgroundTransparent &&
-      state.backgroundGradientFrom !== "#ffd6e8" &&
-      state.backgroundGradientTo !== "#ff70a6"
+      (state.cardBackgroundTransparent && state.backgroundImage) ||
+      (state.cardBackgroundTransparent &&
+        !state.backgroundImage &&
+        state.backgroundGradientFrom !== "#ffd6e8" &&
+        state.backgroundGradientTo !== "#ff70a6")
         ? "text-white"
         : "text-black",
     getBackgroundImage: (state) => state.backgroundImage,
