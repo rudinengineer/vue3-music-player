@@ -24,7 +24,7 @@ export const useThemeStore = defineStore("themes", {
     cardBackgroundColor: "#fff",
     cardBackgroundTransparent: 20,
     cardBackgroundBlur: true,
-    image: animeImg,
+    image: "/assets/anime.jpg",
     title: "",
     user: "iPhone",
     artist: "Rudin",
