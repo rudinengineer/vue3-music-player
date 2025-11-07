@@ -20,7 +20,6 @@ const player = reactive({
   play: props.autoplay,
 });
 const animationDelay = ref<number>(0);
-const volumePermission = ref<boolean>(false);
 
 const setAnimationDelay = (delay: number) => {
   animationDelay.value = delay;
@@ -31,17 +30,9 @@ const setPlayerPlay = (value: boolean) => {
 };
 
 onMounted(async () => {
-  // Permission
-  navigator.mediaDevices
-    .getUserMedia({ audio: true })
-    .then(async () => {
-      volumePermission.value = true;
-    })
-    .finally(() => {
-      if (props.autoplay) {
-        stores.getAudio?.play();
-      }
-    });
+  if (props.autoplay) {
+    stores.getAudio?.play();
+  }
 
   // Listen Audio Change Time
   stores.getAudio?.addEventListener("timeupdate", function () {
@@ -83,7 +74,7 @@ onMounted(async () => {
         />
       </div>
 
-      <div class="mt-6" v-if="volumePermission">
+      <div class="mt-6" v-if="stores.getVolumePermission">
         <Volume />
       </div>
     </div>

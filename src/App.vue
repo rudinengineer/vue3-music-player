@@ -8,6 +8,11 @@ import { useStore } from "./stores/store";
 
 const themes = useThemeStore();
 const stores = useStore();
+
+// Permission
+navigator.mediaDevices.getUserMedia({ audio: true }).then(async () => {
+  stores.setVolumePermission(true);
+});
 </script>
 
 <template>
