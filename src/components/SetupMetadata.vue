@@ -5,6 +5,7 @@ import { useStore } from "../stores/store";
 import Image from "./setup-metadata/Image.vue";
 import Background from "./setup-metadata/Background.vue";
 import Metadata from "./setup-metadata/Metadata.vue";
+import { onMounted } from "vue";
 
 const themes = useThemeStore();
 const stores = useStore();
@@ -12,6 +13,18 @@ const stores = useStore();
 const handleClick = () => {
   stores.setStep("player");
 };
+
+onMounted(async () => {
+  window.addEventListener("keyup", function (e) {
+    if (e.code === "Enter") {
+      handleClick();
+    }
+  });
+
+  if (!document.fullscreenElement) {
+    await document.documentElement.requestFullscreen();
+  }
+});
 </script>
 
 <template>

@@ -36,21 +36,10 @@ onMounted(async () => {
     .getUserMedia({ audio: true })
     .then(async () => {
       volumePermission.value = true;
-      if (props.autoplay) {
-        stores.getAudio?.play();
-      }
-
-      if (!document.fullscreenElement) {
-        await document.documentElement.requestFullscreen();
-      }
     })
-    .catch(async () => {
+    .finally(() => {
       if (props.autoplay) {
         stores.getAudio?.play();
-      }
-
-      if (!document.fullscreenElement) {
-        await document.documentElement.requestFullscreen();
       }
     });
 
