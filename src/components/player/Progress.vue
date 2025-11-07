@@ -57,7 +57,10 @@ onMounted(() => {
   <div
     class="w-full relative flex items-center rounded-xl overflow-x-hidden py-1"
   >
-    <div class="w-full h-1 bg-cute-300"></div>
+    <div
+      class="w-full h-1"
+      :class="themes.cardBackgroundTransparent ? 'bg-slate-100' : 'bg-cute-300'"
+    ></div>
     <div
       ref="playBar"
       :style="{
@@ -67,7 +70,7 @@ onMounted(() => {
         animationDelay: `-${props.animationDelay}s`,
         animationPlayState: props.player.play ? 'running' : 'paused',
       }"
-      class="w-full h-1 bg-cute-500 absolute -left-full flex items-center"
+      class="w-full h-1 absolute -left-full flex items-center bg-cute-500"
     >
       <div class="w-full relative flex items-center">
         <div

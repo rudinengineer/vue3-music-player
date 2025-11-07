@@ -75,12 +75,7 @@ const handleBackgroundImageUrl = (e: any) => {
       />
     </div>
 
-    <div
-      class="my-1 text-center"
-      :class="themes.getCardBackgroundTransparent && 'text-white'"
-    >
-      - or -
-    </div>
+    <div class="my-1 text-center" :class="themes.getTextColor">- or -</div>
 
     <div>
       <input
@@ -88,7 +83,7 @@ const handleBackgroundImageUrl = (e: any) => {
         @change="handleBackgroundImageUrl"
         type="url"
         class="w-full px-4 py-3 rounded-md border-2 outline-none border-cute-300 transition ease-in-out duration-300 focus:border-cute-500"
-        :class="themes.getCardBackgroundTransparent && 'text-white'"
+        :class="themes.getTextColor"
         autocomplete="off"
         placeholder="Image URL"
       />
@@ -107,7 +102,7 @@ const handleBackgroundImageUrl = (e: any) => {
     </div>
     <label
       for="background-metadata-checkbox"
-      :class="themes.getCardBackgroundTransparent && 'text-white'"
+      :class="themes.getTextColor"
       class="text-sm"
       >Background Image</label
     >
@@ -129,7 +124,7 @@ const handleBackgroundImageUrl = (e: any) => {
     </div>
     <label
       for="card-background-transparent-metadata-checkbox"
-      :class="themes.getCardBackgroundTransparent && 'text-white'"
+      :class="themes.getTextColor"
       class="text-sm"
       >Card Background Transparent</label
     >
@@ -147,11 +142,7 @@ const handleBackgroundImageUrl = (e: any) => {
     </div>
     <label
       for="card-background-blur-metadata-checkbox"
-      :class="
-        themes.getBackgroundImage &&
-        themes.cardBackgroundTransparent &&
-        'text-white'
-      "
+      :class="themes.getTextColor"
       class="text-sm"
       >Card Background Blur</label
     >

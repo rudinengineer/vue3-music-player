@@ -47,7 +47,12 @@ document.addEventListener("keyup", function (e) {
       min="0"
       max="100"
       value="50"
-      class="w-full h-1 rounded-full appearance-none transition-all duration-200 [background:linear-gradient(to_right,var(--color-cute-500)_0%,var(--color-cute-500)_var(--val,50%),var(--color-cute-300)_var(--val,50%),var(--color-cute-300)_100%)] [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-cute-500 [&::-webkit-slider-thumb]:shadow"
+      :class="
+        themes.cardBackgroundTransparent
+          ? 'progress-white'
+          : 'progress-cute-500'
+      "
+      class="w-full h-1 rounded-full appearance-none transition-all duration-200"
     />
 
     <button
@@ -70,3 +75,15 @@ document.addEventListener("keyup", function (e) {
     </button>
   </div>
 </template>
+
+<style scoped>
+@reference "../../style.css";
+
+.progress-cute {
+  @apply [background:linear-gradient(to_right,var(--color-cute-500)_0%,var(--color-cute-500)_var(--val,50%),var(--color-cute-300)_var(--val,50%),var(--color-cute-300)_100%)] [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-cute-500 [&::-webkit-slider-thumb]:shadow;
+}
+
+.progress-white {
+  @apply [background:linear-gradient(to_right,#FFFFFF_0%,#FFFFFF_var(--val,50%),#D1D5DB_var(--val,50%),#D1D5DB_100%)] [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow;
+}
+</style>

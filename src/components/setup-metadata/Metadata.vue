@@ -13,7 +13,7 @@ const themes = useThemeStore();
         v-model="props.user"
         type="text"
         class="w-full px-4 py-3 rounded-md border-2 outline-none border-cute-300 transition ease-in-out duration-300 focus:border-cute-500"
-        :class="themes.getCardBackgroundTransparent && 'text-white'"
+        :class="themes.getTextColor"
         autocomplete="off"
         placeholder="User"
       />
@@ -24,7 +24,7 @@ const themes = useThemeStore();
         v-model="props.artist"
         type="text"
         class="w-full px-4 py-3 rounded-md border-2 outline-none border-cute-300 transition ease-in-out duration-300 focus:border-cute-500"
-        :class="themes.getCardBackgroundTransparent && 'text-white'"
+        :class="themes.getTextColor"
         autocomplete="off"
         placeholder="Artist"
       />
@@ -36,7 +36,7 @@ const themes = useThemeStore();
       v-model="props.title"
       type="text"
       class="w-full px-4 py-3 rounded-md border-2 outline-none border-cute-300 transition ease-in-out duration-300 focus:border-cute-500"
-      :class="themes.getCardBackgroundTransparent && 'text-white'"
+      :class="themes.getTextColor"
       autocomplete="off"
       placeholder="Title"
     />

@@ -42,12 +42,7 @@ const handleImageUrl = (e: any) => {
     <input type="file" hidden id="image" @change="handleUpload" />
   </div>
 
-  <div
-    class="my-1 text-center"
-    :class="themes.getCardBackgroundTransparent && 'text-white'"
-  >
-    - or -
-  </div>
+  <div class="my-1 text-center" :class="themes.getTextColor">- or -</div>
 
   <div>
     <input
@@ -55,7 +50,7 @@ const handleImageUrl = (e: any) => {
       @change="handleImageUrl"
       type="url"
       class="w-full px-4 py-3 rounded-md border-2 outline-none border-cute-300 transition ease-in-out duration-300 focus:border-cute-500"
-      :class="themes.getCardBackgroundTransparent && 'text-whitewhite'"
+      :class="themes.getTextColor"
       autocomplete="off"
       placeholder="Image URL"
     />
