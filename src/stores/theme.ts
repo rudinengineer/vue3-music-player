@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import Themes from "../components/Themes.vue";
-import animeImg from "../assets/anime.jpg";
+// import animeImg from "../assets/anime.jpg";
 
 type Themes = {
   backgroundImage: string | null;
