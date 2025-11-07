@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import Card from "./Card.vue";
-import { SanitizeMusicTitle } from "../utils/music";
 import { useThemeStore } from "../stores/theme";
 import { useStore } from "../stores/store";
 import Image from "./setup-metadata/Image.vue";
@@ -10,15 +8,9 @@ import Metadata from "./setup-metadata/Metadata.vue";
 
 const themes = useThemeStore();
 const stores = useStore();
-const title = ref<string>(SanitizeMusicTitle(themes.getTitle));
-const user = ref<string>(themes.getUser);
-const artist = ref<string>(themes.getArtist);
 
 const handleClick = () => {
   stores.setStep("player");
-  themes.setTitle(title.value);
-  themes.setUser(user.value);
-  themes.setArtist(artist.value);
 };
 </script>
 
@@ -38,7 +30,7 @@ const handleClick = () => {
       </div>
 
       <div class="mt-6">
-        <Metadata :user="user" :artist="artist" :title="title" />
+        <Metadata />
 
         <div class="mt-4">
           <Background />

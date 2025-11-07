@@ -48,9 +48,7 @@ document.addEventListener("keyup", function (e) {
       max="100"
       value="50"
       :class="
-        themes.cardBackgroundTransparent
-          ? 'progress-white'
-          : 'progress-cute-500'
+        themes.cardBackgroundTransparent ? 'progress-white' : 'progress-cute'
       "
       class="w-full h-1 rounded-full appearance-none transition-all duration-200"
     />
